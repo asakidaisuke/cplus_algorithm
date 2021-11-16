@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <queue>
 
 struct Node{
 	Node(int value) : value(value) {}
@@ -30,6 +30,33 @@ void print_inorder(Node* node){
 	print_inorder(node->right);
 }
 
+void breadth_first_serach(std::queue<Node*>* to_visit){
+	if(to_visit->size()==0){return;}
+	Node* current_element = to_visit->front();
+	to_visit->pop();
+	if(current_element){
+		std::cout << current_element->value << std::endl;
+		to_visit->push(current_element->left);
+		to_visit->push(current_element->right);
+	}
+	breadth_first_serach(to_visit);
+}
+
+void print_breadth_first(Node* node){
+	std::queue<Node*> to_visit;
+	to_visit.push(node);
+	breadth_first_serach(&to_visit);
+}
+
+
+void depth_first_print(Node* node){
+	if(!node){return;}
+	std::cout << node->value << std::endl;
+	depth_first_print(node->left);
+	depth_first_print(node->right);
+
+}
+
 int main(){
 	Node first(5);
 	Node* head = &first;
@@ -39,5 +66,20 @@ int main(){
 	head = add_node(head, 1);
 	head = add_node(head, 2);
 	head = add_node(head, 7);
+	head = add_node(head, 4);
+	head = add_node(head, 10);
+	head = add_node(head, 11);
+	head = add_node(head, 15);
+	head = add_node(head, 21);
+	head = add_node(head, 4);
+	head = add_node(head, 2);
+	head = add_node(head, 9);
+	head = add_node(head, 19);
+	std::cout << "print inorder" << std::endl;
 	print_inorder(head);
+	std::cout << "print depth first" << std::endl;
+	depth_first_print(head);
+	std::cout << "print breadth first" << std::endl;
+	print_breadth_first(head);
 }
+
