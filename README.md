@@ -1,4 +1,4 @@
-# algo_reference
+# cplus_aogorithm
 
 ## description
-This repository is for basic algorithm reference implemented in C++.
+This is the repository for basic C++ algorithm.
