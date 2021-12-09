@@ -38,6 +38,36 @@ void insert_after(Node** head, int value, int new_value){
 	std::cout << "no matching node" << std::endl;
 }
 
+void pop(Node** head){
+	Node* current = *head;
+	Node* next = current->next;
+	next->prev = NULL;
+	*head = next;
+	delete current;
+}
+
+void delete_node(Node** head, int value){
+	Node* current = *head;
+	if(current && current->value == value){
+		Node* next = current->next;
+		next->prev = NULL;
+		*head = next;
+		delete current;
+		return;
+	}
+	current = current->next;
+	while(current){
+		if(current->value == value){
+			Node* next = current->next;
+			Node* prev = current->prev;
+			prev->next = next;
+			if(next){next->prev = prev;}
+			return;
+		}
+		current = current->next;
+	}
+	std::cout << "no matched value" << std::endl;
+}
 
 void print(Node* head){
 	while(head){
@@ -69,5 +99,17 @@ int main(int argc, char* argv[]){
     print(head);	
 	std::cout << "insert 11 after 10" << std::endl;
     insert_after(&head, 10, 11);
+    print(head);
+	std::cout << "pop" << std::endl;
+	pop(&head);
+	print(head);
+	std::cout << "delete 7" << std::endl;
+    delete_node(&head, 7);
+    print(head);
+	std::cout << "delete 5" << std::endl;
+    delete_node(&head, 5);
+    print(head);
+	std::cout << "delete 11" << std::endl;
+    delete_node(&head, 11);
     print(head);
 }
