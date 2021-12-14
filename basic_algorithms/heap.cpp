@@ -43,12 +43,33 @@ void heap_sort(std::vector<int>* array){
 	}
 }
 
+void insert(std::vector<int>* array, int key){
+	array->push_back(key);
+	int current_position = array->size()-1;
+	while(current_position!=0){
+		if((*array)[current_position] > (*array)[current_position/2]){
+			swap(array, current_position, current_position/2);
+			current_position = current_position/2;
+		}else{
+			break;
+		}
+	}
+
+}
+
+void pop(std::vector<int>* array){
+	swap(array, 0, array->size()-1);
+	array->pop_back();
+	heapify(array, 0, array->size()-1);	
+}
+
 void print(std::vector<int>* array){
 	for(auto ele: *array){
 		std::cout << ele << " ";
 	}
 	std::cout << std::endl;
 }
+
 int main(int argc, char* argv[]){
 	int N;
 	std::cin >> N;
@@ -58,6 +79,20 @@ int main(int argc, char* argv[]){
 		std::cin >> array[i];
 	}
 
-	heap_sort(&array);
+	build_heap(&array);
+	std::cout << "heap built" << std::endl;
 	print(&array);
+
+	std::cout << "insert key" << std::endl;
+	int key;
+	std::cin >> key;
+	insert(&array, key);
+    std::cout << "key inserted" << std::endl;
+    print(&array);
+
+	pop(&array);
+    std::cout << "pop top" << std::endl;
+    print(&array);
+
+
 }
