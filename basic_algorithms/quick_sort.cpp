@@ -30,18 +30,41 @@ void quick_sort(std::vector<int>* array, int start_index,int end_index){
 }
 
 
+void quick_sort_iterative(std::vector<int>* array){
+	std::vector<std::pair<int,int>> stack;
+	stack.push_back(std::pair(0, array->size()-1));
+	while(stack.size() != 0){
+		std::pair<int,int> left_and_right = stack.back(); stack.pop_back();
+		int middle = partition(array, left_and_right.first, left_and_right.second);
+		if(left_and_right.first < middle-1){
+			stack.push_back(std::pair(left_and_right.first, middle-1));
+		}
+		if(middle+1 < left_and_right.second){
+            stack.push_back(std::pair(middle+1, left_and_right.second));
+        }
+		std::cout << stack.size() << std::endl;
+	}
+}
+
 int main(){
 	int N;
 	std::cin >> N;
-	
 	std::vector<int> array(N);
 	for(int i=0; i < N;i++){
 		std::cin >> array[i];
 	}
+	std::vector<int> array_for_iter{array};
+
 	quick_sort(&array, 0, N-1);
 	for(auto element : array){
-		std::cout << element << std::endl; 
+		std::cout << element << " "; 
 	}
-	
+	std::cout << std::endl;
+
+	quick_sort_iterative(&array_for_iter);
+	for(auto element : array_for_iter){
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
 
 }
