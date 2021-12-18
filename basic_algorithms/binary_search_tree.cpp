@@ -57,6 +57,11 @@ void depth_first_print(Node* node){
 
 }
 
+void delete_node(Node* node){
+	
+
+}
+
 int main(){
 	Node first(5);
 	Node* head = &first;
